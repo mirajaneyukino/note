@@ -1,0 +1,86 @@
+ES6 兼容 CommonJS 和 AMD 這兩種著名的模組規範。
+
+require VS import
+ES5
+
+1
+var React = require('react');
+ES6
+
+1
+import React from 'react';
+require 是 CommonJS 引入模組的寫法，ES6 則走 Python 風，使用關鍵字 import，後面分號還可以省略，夠 Python 吧？
+
+ES5
+
+1
+require('c8763.css');
+ES6
+
+1
+import 'c8763.css';
+直接引入一個文件，像是 css。
+
+module.exports VS export default
+ES5
+
+1
+2
+var Demo = React.createClass({ ... });
+module.exports = Demo;
+ES6
+
+1
+export default class Demo extends React.Component{ ... }
+module.exports 是 CommonJS 模組輸出的寫法。與 import 相對，ES6 使用的是 export。default 則代表輸出只有它。
+兩者後面可以接變數，函數，物件或 class。
+
+export & import{}
+ES5
+
+1
+2
+3
+4
+5
+6
+7
+8
+9
+// abc.jsx
+const a = 'A';
+const b = 'B';
+const c = 'C';
+module.exports = {a, b, c};
+// Demo.jsx
+var abc = require('./abc.jsx');
+var a = abc.a;
+var c = abc.c;
+ES6
+
+1
+2
+3
+4
+5
+6
+// abc.jsx
+export const a = 'A';
+export const b = 'B';
+export const c = 'C';
+// Demo.jsx
+import {a, c} from './abc.jsx'
+export 後面不加 default 的話代表輸出可能不只有它，會自動將所有 export 包成物件。
+import 後面加大括號可以直接取出 module 的物件屬性，不過限制是存放的變數和物件屬性必須同名。
+
+引入官方模組時也很好用，例如引入 react.Component：
+ES5
+
+1
+2
+var React = require('react');
+var createClass = React.createClass;
+ES6
+
+1
+import {Component} from 'react';

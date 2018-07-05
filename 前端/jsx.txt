@@ -1,0 +1,22 @@
+HTML 大部份的寫法在 JSX 都可以通用，除了以下幾點限制：
+
+HTML 的 class 屬性在 JSX 須寫為 className (class 為 JSX 保留字)
+HTML 的 for 屬性在 JSX 須寫為 htmlFor (for 為 JSX 保留字)
+所有 tag 都須被閉合 (XML 的特性)
+EX：HTML <br> => JSX <br />
+同 JS，註解可以用 /* */ 或 //，在 tag 中使用的話則須用大括號 {} 包住
+事件觸發是採用駝峰式命名法而不是全部小寫。
+EX：
+
+1
+<button onClick={this.c8763}></button>
+style 屬性要以 JS 物件的格式設定 (JSON)，採用駝峰式命名法而非-，數值的單位是 px，其他單位要用單引號包住 (EX: ‘50%’)。別忘記外面要再加上一層大括號。
+EX：
+
+1
+<a style={{ fontSize: '16px', color: '#FF0' }}>87</a>
+JSX 除了 HTML 外還可以用其他的寫法，例：
+
+因為 JSX 只是 JS 的擴充語法，JS 語法仍可使用，在 tag 中使用的話則須用大括號 {} 包住
+可以用 class 自定義 Component 來使用，第一個字母必須是大寫 (XML 的特性 + JS 的類別)
+另外，JSX 是將 tag 轉換成函數，因此一個頂端 tag 對應一個函數。在 retuen 時只能回傳一個頂端 tag，可以在最外層套一個 div 或 Component 解決這個問題。

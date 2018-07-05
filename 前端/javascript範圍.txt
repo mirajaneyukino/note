@@ -1,0 +1,33 @@
+也就是如果變數是出現在指派運算式的左側，但尚未使用 var 來宣告)，
+就會將它建立為全域變數。
+
+
+下面程式碼受到 Internet Explorer 11 標準模式和以後版本的支援。
+
+JavaScript
+let x = 10;
+var y = 10;
+{
+    let x = 5;
+    var y = 5;
+    {
+        let x = 2;
+        var y = 2;
+        document.write("x: " + x + "<br/>");
+        document.write("y: " + y + "<br/>");
+        // Output:
+        // x: 2
+        // y: 2
+    }
+    document.write("x: " + x + "<br/>");
+    document.write("y: " + y + "<br/>");
+    // Output:
+    // x: 5
+    // y: 2
+}
+
+document.write("x: " + x + "<br/>");
+document.write("y: " + y + "<br/>");
+// Output:
+// x: 10
+// y: 2

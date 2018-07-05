@@ -1,0 +1,7 @@
+Webpack 是一個模組打包工具（module bundler），以下列出 Webpack 的幾項主要功能：
+
+將 CSS、圖片與其他資源打包
+打包之前預處理（Less、CoffeeScript、JSX、ES6 等）檔案
+依 entry 文件不同，把 .js 分拆為多個 .js 檔案
+整合豐富的 Loader 可以使用（Webpack 本身僅能處理 JavaScript 模組，其餘檔案如：CSS、Image 需要載入不同 Loader 進行處理）
+CommonJS 規範是一種同步模組載入的規範。以 Node.js 其遵守 CommonJS 規範，使用 require 進行模組同步載入，並透過 exports、module.exports 來輸出模組。主要實現為 Node.js 伺服器端的同步載入和瀏覽器端的 Browserify。

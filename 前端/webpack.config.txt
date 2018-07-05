@@ -1,0 +1,176 @@
+環境配置
+webpack.config.js
+首先，在 NPM 專案的根目錄建立一個名叫 webpack.config.js 的檔案，並輸入以下內容：
+
+1
+2
+3
+4
+5
+var path = require('path');
+var webpack = require('webpack');
+module.exports = {
+};
+所有設定將打在 module.exports 中輸出。
+
+entry
+說明：Webpack 會將每個 entry 文件編譯打包。當然，其中 require 的文件 (js, css, img) 會一起被打包進來。
+格式：字串或字串陣列 （一個檔案對應一個字串，為 JS 檔）
+
+EX：
+
+1
+2
+3
+entry: [
+  './main.jsx'
+]
+output
+說明：打包後生成的檔案路徑。
+格式：物件
+屬性：
+
+path
+說明：打包生成的目錄
+格式：字串
+filename
+說明：生成的 js 檔名
+格式：字串
+publicPath
+說明：CSS 打包時修改的引用檔案路徑
+格式：字串
+EX：
+
+1
+2
+3
+4
+5
+6
+output: {
+  // path.join => 兩個參數，依當前的作業系統幫你在中間加 '/' 或 '\'，然後串接
+  path: path.join(__dirname, 'dist'),
+  filename: 'compiled.js',
+  publicPath: '/'
+}
+resolve
+說明：require 相關設置。
+格式：物件
+屬性：
+
+root
+說明：require 的根目錄 (模組的引用不受影響)
+格式：字串或字串陣列
+extensions
+說明：require 可省略的副檔名
+格式：字串或字串陣列
+ailas
+說明：屬性對應的值會形成 ailas 對應。ailas: { a:'b' } => require('a') 同於 require('b')
+格式：物件
+EX：
+
+1
+2
+3
+4
+5
+6
+resolve: {
+  // path.resolve 可以傳入任意數量的字串，會將他們以類似 cd 的方式一一執行，並回傳最後的絕對路徑
+  root: [path.resolve(__dirname, 'src')],
+  extensions: ['', '.js', '.jsx','css', '.scss'],
+  ailas: { a:'b' }
+}
+module
+格式：物件
+屬性：
+
+loaders
+說明：entry 及 require 到的檔都會依此轉換成 JS，anything to JS
+格式：物件陣列（由下往上依序轉換）
+屬性：
+test
+說明：指定目標檔案的檔名
+格式：正則表達式
+loader
+說明：指定使用的 loader
+格式：字串或字串陣列 （loader 語法）（由右往左依序轉換）
+include
+說明：白名單，只處理的目錄
+格式：字串或字串陣列
+exclude
+說明：黑名單，忽略、不處理的目錄
+格式：字串或字串陣列
+EX：
+
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+module: {
+  loaders: [{
+    // '/' 是 JS 正則表達式標記，'.' 是正則表達式關鍵字，所以前面要加個 '\' 讓正則表達式以字元方式處理，'|' 是 '或' 的意思，'$' 是字串結束符號
+    // 整體意思是找檔名末尾是 .js 或 .jsx 的
+    test: /\.(js|jsx)$/,
+    // '-loader' 可省略，即 'babel'
+    loader: 'babel-loader',
+	// node_modules 的 JS 檔必定是瀏覽器原本就能吃的 ES5，不需要經過編譯，所以忽略以增加效率和避免錯誤
+    exclude: /node_modules/
+  }, {
+    test: /\.css$/,
+    // '-loader' 可省略，'!' 表示 loader 串聯順序（由右往左依序轉換），'？' 表示傳送請求參數（類似 get）來進階設定
+    // loader 串聯亦可用陣列表示：
+    // loader: [ 'style-loader' , 'css-loader?sourceMap' ]
+    loader: 'style-loader!css-loader?sourceMap'
+  }]
+}
+devtool
+說明：設置 eval 或 SourceMap 屬性，debug 用
+格式：字串
+種類：
+
+'eval'
+'source-map'
+'hidden-source-map'
+'inline-source-map'
+'eval-source-map'
+'cheap-source-map'
+'cheap-module-source-map'
+可以混著用，個別的介紹請看這裡，我懶的打字
+EX：
+
+1
+devtool: 'cheap-module-eval-source-map'
+plugins
+說明：插件配置
+格式：物件或物件陣列，通常以 new webpack.XXXPlugin() 產生物件
+
+EX：
+
+1
+2
+3
+4
+5
+6
+7
+plugins: [
+  new webpack.HotModuleReplacementPlugin(),
+  new webpack.ProvidePlugin({
+    React: 'react',
+    ReactDOM:'react-dom'
+  })
+]

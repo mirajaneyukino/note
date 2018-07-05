@@ -1,0 +1,15 @@
+$function(){$ajax({
+type:'GET'
+url:'抓JSON的網址'
+sucess:function(data){
+成功的話會傳到data變數
+console.log(data);
+//判斷型態
+console.log(typeof(data));
+
+//javascript轉json方法
+var jsondata = JSON.parse(data);
+console.log(typeof(jsondata)); //Object
+}
+});
+});
